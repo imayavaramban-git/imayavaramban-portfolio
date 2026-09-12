@@ -1,10 +1,16 @@
 /**
  * REST API client for interacting with the FastAPI backend.
  */
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api';
+let rawBase = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api';
+rawBase = rawBase.replace(/\/+$/, ''); // Remove trailing slash
+if (!rawBase.endsWith('/api')) {
+  rawBase = `${rawBase}/api`;
+}
+const API_BASE_URL = rawBase;
 
 async function request(endpoint, options = {}) {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = `${API_BASE_URL}${cleanEndpoint}`;
   try {
     const res = await fetch(url, options);
     if (!res.ok) {

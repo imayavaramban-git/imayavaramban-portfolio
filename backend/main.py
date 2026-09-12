@@ -24,6 +24,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/", tags=["Root"])
+def root():
+    """Root endpoint welcoming visitors and directing to documentation."""
+    return {
+        "message": "Imayavaramban S — AI Portfolio API is live!",
+        "docs": "/docs",
+        "health": "/api/health",
+        "portfolio": "/api/portfolio"
+    }
+
 @app.get("/api/health", response_model=HealthResponse, tags=["Health"])
 def health_check():
     """Health status and current AI operational mode."""
