@@ -54,3 +54,7 @@ ENV/
 frontend/dist/
 frontend/dist-ssr/
 *.local
+
+# Local distribution / shareable packages
+shareable-package/
+imayavaramban-portfolio-shareable/
